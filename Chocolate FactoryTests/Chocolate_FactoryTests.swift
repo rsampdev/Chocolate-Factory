@@ -7,30 +7,53 @@
 //
 
 import XCTest
-@testable import Chocolate_Factory
+@testable import ChocolateFactory
 
 class Chocolate_FactoryTests: XCTestCase {
     
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    func testChocolateFactoryStockingPass() {
+        let factory = ChocolateFactory()
+        
+        factory.stock(24)
+        
+        XCTAssertEqual(factory.smallChocolateBars, 4)
+        XCTAssertEqual(factory.bigChocolateBars, 4)
     }
     
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
+    func testChocolateFactoryStockingFail() {
+        let factory = ChocolateFactory()
+        
+        factory.stock(31)
+        
+        XCTAssertNotEqual(factory.smallChocolateBars, 26)
+        XCTAssertNotEqual(factory.bigChocolateBars, 5)
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testChocolateFactoryStockingNoBigBars() {
+        let factory = ChocolateFactory()
+        
+        factory.stock(4)
+        
+        XCTAssertEqual(factory.smallChocolateBars, 4)
+        XCTAssertEqual(factory.bigChocolateBars, 0)
     }
     
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    func testChocolateFactoryStockingNoSmallBars() {
+        let factory = ChocolateFactory()
+        
+        factory.stock(5)
+        
+        XCTAssertEqual(factory.smallChocolateBars, 0)
+        XCTAssertEqual(factory.bigChocolateBars, 1)
+    }
+    
+    func testChocolateFactoryStockingNegativeNumbers() {
+        let factory = ChocolateFactory()
+        
+        factory.stock(-10)
+        
+        XCTAssertEqual(factory.smallChocolateBars, 0)
+        XCTAssertEqual(factory.bigChocolateBars, 0)
     }
     
 }
